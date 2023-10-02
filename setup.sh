@@ -116,10 +116,12 @@ install_packages() {
     fi
     # debian
     if [[ $DISTRO == "$LINUX_DEBIAN" ]]; then
+        # quiet
+        export DEBIAN_FRONTEND=noninteractive
         # essentials
         apt install -y -qq sudo neovim kitty-terminfo
-        # net utils
-        apt install -y -qq curl gnupg wget
+        # utils
+        apt install -y -qq curl gnupg wget htop
         # dev
         apt install -y -qq build-essential
         apt install -y -qq autoconf automake gdb git
