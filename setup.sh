@@ -83,6 +83,7 @@ install_packages() {
     log "install packages"
     DISTRO=$(get_distro)
 
+    # clear-linux
     if [[ $DISTRO == "$LINUX_CLEARLINUX" ]]; then
         # add bundles
         BUNDLES="containers-basic
@@ -113,6 +114,21 @@ install_packages() {
             bundle-add "$BUNDLE"
         done
     fi
+    # debian
+    if [[ $DISTRO == "$LINUX_DEBIAN" ]]; then
+        # essentials
+        apt install -y -qq sudo neovim kitty-terminfo
+        # net utils
+        apt install -y -qq curl gnupg wget
+        # dev
+        apt install -y -qq build-essential
+        apt install -y -qq autoconf automake gdb git
+        apt install -y -qq libssl-dev libffi-dev zlib1g-dev
+        # python
+        apt install -y -qq python3-pip python3-venv python3-dev
+        # node
+        apt install -y -qq nodejs
+    fi
 }
 
 root_bash_settings() {
@@ -127,6 +143,7 @@ root_bash_settings() {
             cp profile /root/.profile
         fi
         cp bashrc /root/.bashrc
+        cp bash_aliases /root/.bash_aliases
     fi
 }
 
@@ -199,6 +216,9 @@ create_admin() {
 
 configure_admin() {
     log "configure admin user"
+
+    # debian: usermod -aG sudo
+    # kitty only on clear-linux
     # kitty-term
     su - admin <<EOF
         mkdir -p ~/.terminfo/x
@@ -210,6 +230,8 @@ EOF
     chown admin:admin /home/admin/.profile
     cp bashrc /home/admin/.bashrc
     chown admin:admin /home/admin/.bashrc
+    cp bash_aliases /home/admin/.bash_aliases
+    chown admin:admin /home/admin/.bash_aliases
     mkdir -p ~/.local/bin
     # astrovim
     su - admin <<EOF
@@ -231,18 +253,18 @@ EOF
 main() {
     check_distro
 
-    # install_packages
-    # # configure_updates
-    # # sudoers_timeout
+    install_packages
+    # configure_updates
+    # sudoers_timeout
 
-    # # root_bash_settings
+    # root_bash_settings
 
-    # # prepare_tools_install
-    # # install_lf
-    # # install_moar
-    # # install_astrovim
-    # # install_fd
-    # # install_ripgrep
+    # prepare_tools_install
+    # install_lf
+    # install_moar
+    # install_astrovim
+    # install_fd
+    # install_ripgrep
 
     # create_admin
     # configure_admin
