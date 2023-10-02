@@ -232,20 +232,20 @@ main() {
     check_distro
 
     # install_packages
-    # configure_updates
-    # sudoers_timeout
+    # # configure_updates
+    # # sudoers_timeout
 
-    # root_bash_settings
+    # # root_bash_settings
 
-    # prepare_tools_install
-    # install_lf
-    # install_moar
-    # install_astrovim
-    # install_fd
-    # install_ripgrep
+    # # prepare_tools_install
+    # # install_lf
+    # # install_moar
+    # # install_astrovim
+    # # install_fd
+    # # install_ripgrep
 
-    create_admin
-    configure_admin
+    # create_admin
+    # configure_admin
     log "DONE!"
 }
 
