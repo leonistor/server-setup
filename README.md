@@ -33,6 +33,7 @@ utility script to configure a new server, Debian or Clear Linux, with `admin` us
 - [ ] add admin to cronie
 - [ ] tools: https://github.com/dalance/procs
 - [ ] tools: https://github.com/ogham/dog
+- debian auto update: Allow installing updates from all origins (see tutorial below)
 
 ## tricks used
 
@@ -58,6 +59,7 @@ sudo swupd bundle-list --status | grep "explicitly installed" \
 ### debian
 
 - good howtos: [server-world.info](https://www.server-world.info/en/)
+- [unattended upgrades guide](https://techlabs.blog/categories/debian-linux/automatically-install-updates-using-unattended-upgrades-on-debian-11)
 
 ### uu(en/de)code
 

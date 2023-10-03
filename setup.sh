@@ -68,6 +68,25 @@ configure_updates() {
         clr-service-restart allow NetworkManager.service dbus.service
         clr-service-restart allow docker.service cronie.service containerd.service
     fi
+    if [[ $DISTRO == "$LINUX_DEBIAN" ]]; then
+        # unattended upgrades
+        apt-get install unattended-upgrades apt-listchanges apt-config-auto-update
+        APTCONFIG="/etc/apt/apt.conf.d/50unattended-upgrades"
+        # shellcheck disable=SC2016
+        LINES_UNCOMMENT=(
+            '//      "origin=Debian,codename=${distro_codename}-updates";'
+        )
+
+        # uncomment lines, using | separator here
+        sed -i "29,104,107s|//||" "$APTCONFIG"
+        # toggle true
+        sed -i "111,115,119s/false/true/" "$APTCONFIG"
+        # update daily
+        UPGRADECONF="/etc/apt/apt.conf.d/20auto-upgrade"
+        touch "$UPGRADECONF"
+        echo 'APT::Periodic::Update-Package-Lists "1";' >>"$UPGRADECONF"
+        echo 'APT::Periodic::Unattended-Upgrade "1";' >>"$UPGRADECONF"
+    fi
 }
 
 sudoers_timeout() {
