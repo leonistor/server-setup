@@ -61,6 +61,21 @@ sudo swupd bundle-list --status | grep "explicitly installed" \
 - good howtos: [server-world.info](https://www.server-world.info/en/)
 - [unattended upgrades guide](https://techlabs.blog/categories/debian-linux/automatically-install-updates-using-unattended-upgrades-on-debian-11)
 
+### ubuntu
+
+- [Keep Ubuntu 22.04 Servers Updated](https://www.digitalocean.com/community/tutorials/how-to-keep-ubuntu-22-04-servers-updated)
+- [Livepatch Service](https://ubuntu.com/security/livepatch) free for 5 machines
+
+
+### arch
+
+- use `archinstall`
+- must have: `base base-devel grub linux linux-firmware openssh`
+- packages: `htop zip unzip wget ntp python python-pip openssh net-tools man-db man-pages grub kitty-terminfo`
+- pacman config: uncomment in `/etc/pacman.conf`: `Color` and `ParallelDownloads = 5`
+- cron [auto updates](https://linuxman.co/linux-desktop/keeping-arch-linux-shiny-with-automatic-updates-using-systemd/)
+
+
 ### uu(en/de)code
 
 The uuencode command uses the syntax: `uuencode original_filename final_filename > encoded_filename`
