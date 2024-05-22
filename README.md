@@ -19,6 +19,7 @@ utility script to configure a new server, Debian or Clear Linux, with `admin` us
     - [astrovim](https://astronvim.com/Recipes/unattended_install)
     - [fd find](https://github.com/sharkdp/fd)
     - [rip grep](https://github.com/BurntSushi/ripgrep)
+    - [ttyd](https://github.com/tsl0922/ttyd)
 -add `admin` user
     - bashrc
     - create `.local/bin`
