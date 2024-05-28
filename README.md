@@ -61,6 +61,7 @@ sudo swupd bundle-list --status | grep "explicitly installed" \
 
 - good howtos: [server-world.info](https://www.server-world.info/en/)
 - [unattended upgrades guide](https://techlabs.blog/categories/debian-linux/automatically-install-updates-using-unattended-upgrades-on-debian-11)
+- [laptop prevent suspend](https://gitlab.com/-/snippets/2515869)
 
 ### ubuntu
 
