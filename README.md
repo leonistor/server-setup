@@ -36,6 +36,7 @@ utility script to configure a new server, Debian or Clear Linux, with `admin` us
 
 - bash set debug: `bash -x script.sh`
 - pip quiet mode, assume yes: `pip install --quiet -q lastversion`, `pip uninstall --yes --quiet -q lastversion`
+- [files mode](https://ss64.com/bash/chmod.html)
 
 ### clear linux
 
