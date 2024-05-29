@@ -30,3 +30,5 @@ tar xf lf.tar.gz
 chmod +x lf
 mv lf ../tools/lf
 rm lf.tar.gz
+
+# TODO: ttyd: https://github.com/tsl0922/ttyd/releases

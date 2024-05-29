@@ -16,27 +16,16 @@ def install_base_packages():
     )
 
 
-def _setup_bash():
-    files.put(
-        src="files/profile",
-        dest=".profile",
-        force=True,
-    )
-    files.put(
-        src="files/bashrc",
-        dest=".bashrc",
-        force=True,
-    )
-    files.put(
-        src="files/bash_aliases",
-        dest=".bash_aliases",
-        force=True,
-    )
+def _bash_config():
+    files.put(src="files/profile", dest=".profile", force=True)
+    files.put(src="files/bashrc", dest=".bashrc", force=True)
+    files.put(src="files/bash_aliases", dest=".bash_aliases", force=True)
 
 
 @deploy("Setup bash")
 def setup_bash():
-    _setup_bash()
+    _bash_config()
+    files.directory(path=".local/bin", present=True, recursive=True)
 
 
 @deploy("Setup tools")
