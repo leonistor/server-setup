@@ -19,7 +19,7 @@ export PAGER=moar
 export MOAR="-no-linenumbers -no-statusbar -style onedark"
 
 # editor
-export EDITOR=nvim
+export EDITOR=vim
 
 # npm
 export NPM_PACKAGES="${HOME}/.npm-packages"
