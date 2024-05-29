@@ -7,24 +7,14 @@ utility script to configure a new server, Debian or Clear Linux, with `admin` us
 - kitty terminfo
 - bashrc for root
 - packages
-    - system: cronie, devtools
-    - platform: node, docker, python
+  - system: cronie, devtools
+  - platform: node, docker, python
 - setup services
 - prepare tools install
-    - install `lastversion` from pip
-    - check/mkdir `/usr/local/bin`
-- install tools from binary releases to `/usr/local/bin`
-    - [lf file manager](https://github.com/gokcehan/lf)
-    - [moar pager](https://github.com/walles/moar)
-    - [astrovim](https://astronvim.com/Recipes/unattended_install)
-    - [fd find](https://github.com/sharkdp/fd)
-    - [rip grep](https://github.com/BurntSushi/ripgrep)
-    - [ttyd](https://github.com/tsl0922/ttyd)
--add `admin` user
-    - bashrc
-    - create `.local/bin`
-    - configure npm without sudo
-
+  - install `lastversion` from pip
+  - check/mkdir `/usr/local/bin`
+- install tools from binary releases to `/usr/local/bin` - [lf file manager](https://github.com/gokcehan/lf) - [moar pager](https://github.com/walles/moar) - [astrovim](https://astronvim.com/Recipes/unattended_install) - [fd find](https://github.com/sharkdp/fd) - [rip grep](https://github.com/BurntSushi/ripgrep) - [ttyd](https://github.com/tsl0922/ttyd)
+  -add `admin` user - bashrc - create `.local/bin` - configure npm without sudo
 
 ---
 
@@ -62,12 +52,14 @@ sudo swupd bundle-list --status | grep "explicitly installed" \
 - good howtos: [server-world.info](https://www.server-world.info/en/)
 - [unattended upgrades guide](https://techlabs.blog/categories/debian-linux/automatically-install-updates-using-unattended-upgrades-on-debian-11)
 - [laptop prevent suspend](https://gitlab.com/-/snippets/2515869)
+- vim default editor: `sudo update-alternatives --install /usr/bin/editor editor /usr/bin/vim 100`
+- add sudo: root: `apt install -y sudo`; `echo "leo    ALL=(ALL:ALL) ALL" > /etc/sudoers.d/leo`
+- sudo timeout: `echo "Defaults timestamp_timeout = -1" > /etc/sudoers.d/timeout`
 
 ### ubuntu
 
 - [Keep Ubuntu 22.04 Servers Updated](https://www.digitalocean.com/community/tutorials/how-to-keep-ubuntu-22-04-servers-updated)
 - [Livepatch Service](https://ubuntu.com/security/livepatch) free for 5 machines
-
 
 ### arch
 
@@ -76,7 +68,6 @@ sudo swupd bundle-list --status | grep "explicitly installed" \
 - packages: `htop zip unzip wget ntp python python-pip openssh net-tools man-db man-pages grub kitty-terminfo`
 - pacman config: uncomment in `/etc/pacman.conf`: `Color` and `ParallelDownloads = 5`
 - cron [auto updates](https://linuxman.co/linux-desktop/keeping-arch-linux-shiny-with-automatic-updates-using-systemd/)
-
 
 ### uu(en/de)code
 
