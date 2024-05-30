@@ -31,4 +31,9 @@ chmod +x lf
 mv lf ../tools/lf
 rm lf.tar.gz
 
-# TODO: ttyd: https://github.com/tsl0922/ttyd/releases
+echo "ttyd"
+lastversion --assets --filter "x86_64" \
+    --output ttyd download tsl0922/ttyd
+mv ttyd.x86_64 ttyd
+chmod +x ttyd
+mv ttyd ../tools/ttyd

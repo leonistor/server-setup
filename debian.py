@@ -2,8 +2,8 @@
 # set -x PYTHONPATH "."; pyinfra inventory/test.py debian.install_base_packages
 
 from pyinfra import logger
-from pyinfra.api import deploy
-from pyinfra.operations import apt, files, server
+from pyinfra.api.deploy import deploy
+from pyinfra.operations import apt, files
 from io import StringIO
 
 
