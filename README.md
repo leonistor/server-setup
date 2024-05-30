@@ -1,4 +1,20 @@
-# server setup scripts
+# infra setup using pyinfra
+
+**Activate venv!**
+
+`source ./venv/bin/activate.fish`
+
+invoke deploys:
+
+- fish shell: `set -x PYTHONPATH "."; pyinfra inventory/test.py debian.setup_bash -v`
+
+invoke tests:
+
+- `pytest -v --hosts='ssh://192.168.64.2' test/test_connection.py`
+
+---
+
+# old README
 
 utility script to configure a new server, Debian or Clear Linux, with `admin` user.
 
