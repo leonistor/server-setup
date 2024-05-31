@@ -1,5 +1,9 @@
-import getpass
+debian_12_utm = "192.168.64.2"
+verde = "verde.lan"
+vivobook = "vivobook.lan"
 
-_SUDO_PASSWORD = getpass.getpass(prompt="Sudo password: ")
+vms = [debian_12_utm]
+debians = [debian_12_utm, vivobook]
+clear_linuxes = [verde]
 
-test_hosts = [("192.168.64.2", {"_use_sudo_password": _SUDO_PASSWORD})]
+all = [debian_12_utm, verde, vivobook]
