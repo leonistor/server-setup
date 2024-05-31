@@ -7,18 +7,19 @@ from pyinfra.operations import apt, files, server
 from io import StringIO
 
 
-@deploy("Install common base packages")
+# TODO: extract to package lists, call one fn
 def install_base_packages():
     apt.packages(
+        name="base packages",
         packages=["vim", "sudo", "kitty-terminfo"],
         update=True,
         _sudo=True,
     )
 
 
-@deploy("Install base packages")
 def install_packages():
     apt.packages(
+        name="util and dev packages",
         packages=[
             # utils
             "curl",
@@ -46,25 +47,20 @@ def install_packages():
     )
 
 
-def _bash_config(user="leo", group="leo"):
+def bash_config(user="leo", group="leo"):
     sources = ["profile", "bashrc", "bash_aliases"]
     for source in sources:
         files.put(
             src=f"files/{source}",
-            dest=f".{source}.sh",
+            dest=f"/home/{user}/.{source}",
             force=True,
             user=user,
             group=group,
+            mode="600",
+            _sudo=True,
         )
 
 
-@deploy("Setup bash")
-def setup_bash(user="leo", group="leo"):
-    _bash_config(user, group)
-    files.directory(path=".local/bin", present=True, recursive=True)
-
-
-@deploy("Setup tools")
 def setup_tools():
     logger.info("DO NOT FORGET:")
     logger.info("run scripts/get-tools.sh for latest binaries")
@@ -88,14 +84,52 @@ def setup_tools():
     )
 
 
-@deploy("admin user")
-def admin_user():
+def create_admin_user():
     server.user(
+        name="create admin user",
         user="admin",
         password="$1$LWxAxY4C$24Xr5YWtD5v4.SYdF.IHM1",
         present=True,
         create_home=True,
         system=True,
+        shell="/bin/bash",
+        groups=[
+            "cdrom",
+            "floppy",
+            "audio",
+            "dip",
+            "video",
+            "plugdev",
+            "users",
+            "netdev",
+        ],
         unique=True,
         _sudo=True,
     )
+    files.put(
+        src=StringIO("admin    ALL=(ALL:ALL) ALL"),
+        dest="/etc/sudoers.d/admin",
+        user="root",
+        group="root",
+        mode="440",
+        _sudo=True,
+    )
+
+
+@deploy("admin user")
+def setup_admin():
+    create_admin_user()
+    bash_config(user="admin", group="admin")
+
+
+@deploy("setup server")
+def setup_server():
+    install_base_packages()
+    install_packages()
+    setup_tools()
+    create_admin_user()
+    bash_config(user="leo", group="leo")
+
+
+# TODO: test new functionality
+# TODO: npmrc and .local/bin
