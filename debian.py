@@ -3,7 +3,7 @@
 
 from pyinfra import logger
 from pyinfra.api.deploy import deploy
-from pyinfra.operations import apt, files
+from pyinfra.operations import apt, files, server
 from io import StringIO
 
 
@@ -16,15 +16,51 @@ def install_base_packages():
     )
 
 
-def _bash_config():
-    files.put(src="files/profile", dest=".profile", force=True)
-    files.put(src="files/bashrc", dest=".bashrc", force=True)
-    files.put(src="files/bash_aliases", dest=".bash_aliases", force=True)
+@deploy("Install base packages")
+def install_packages():
+    apt.packages(
+        packages=[
+            # utils
+            "curl",
+            "gnupg",
+            "wget",
+            "htop",
+            # dev
+            "build-essential",
+            "autoconf",
+            "automake",
+            "gdb",
+            "git",
+            "libssl-dev",
+            "libffi-dev",
+            "zlib1g-dev",
+            # python
+            "python3-pip",
+            "python3-venv",
+            "python3-dev",
+            # node
+            "nodejs",
+        ],
+        update=True,
+        _sudo=True,
+    )
+
+
+def _bash_config(user="leo", group="leo"):
+    sources = ["profile", "bashrc", "bash_aliases"]
+    for source in sources:
+        files.put(
+            src=f"files/{source}",
+            dest=f".{source}.sh",
+            force=True,
+            user=user,
+            group=group,
+        )
 
 
 @deploy("Setup bash")
-def setup_bash():
-    _bash_config()
+def setup_bash(user="leo", group="leo"):
+    _bash_config(user, group)
     files.directory(path=".local/bin", present=True, recursive=True)
 
 
@@ -48,5 +84,18 @@ def setup_tools():
         dest="/etc/lf/lfrc",
         user="root",
         group="root",
+        _sudo=True,
+    )
+
+
+@deploy("admin user")
+def admin_user():
+    server.user(
+        user="admin",
+        password="$1$LWxAxY4C$24Xr5YWtD5v4.SYdF.IHM1",
+        present=True,
+        create_home=True,
+        system=True,
+        unique=True,
         _sudo=True,
     )
