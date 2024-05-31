@@ -14,14 +14,15 @@ tar -xf fd.tar.gz -C fd-current --strip-components=1
 mv ./fd-current/fd ../tools/fd
 rm -rf fd-current fd.tar.gz
 
-echo "rg"
-lastversion --assets --filter "i686-unknown-linux-gnu.tar.gz" \
-    download BurntSushi/ripgrep
-rm ./*.sha256
-mkdir rg-current
-tar -xf ripgrep* -C rg-current --strip-components=1
-mv ./rg-current/rg ../tools/rg
-rm -rf rg-current ripgrep*.tar.gz
+# echo "rg"
+# FAIL: binary not working on linux
+# lastversion --assets --filter "i686-unknown-linux-gnu.tar.gz" \
+#     download BurntSushi/ripgrep
+# rm ./*.sha256
+# mkdir rg-current
+# tar -xf ripgrep* -C rg-current --strip-components=1
+# mv ./rg-current/rg ../tools/rg
+# rm -rf rg-current ripgrep*.tar.gz
 
 echo "lf"
 lastversion --assets --filter "linux-amd64" \

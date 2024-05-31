@@ -61,6 +61,10 @@ def bash_config(user="leo", group="leo"):
         )
 
 
+def _install_ripgrep():
+    return
+
+
 def setup_tools():
     logger.info("DO NOT FORGET:")
     logger.info("run scripts/get-tools.sh for latest binaries")
@@ -68,6 +72,7 @@ def setup_tools():
         name="tools binaries",
         src="tools",
         dest="/usr/local/bin",
+        exclude=[".gitkeep"],
         user="root",
         group="root",
         mode="755",
@@ -128,8 +133,11 @@ def setup_server():
     install_packages()
     setup_tools()
     create_admin_user()
+    bash_config(user="admin", group="admin")
     bash_config(user="leo", group="leo")
 
 
-# TODO: test new functionality
+# TODO: write tests for new functionality
 # TODO: npmrc and .local/bin
+# TODO: correct install ripgrep
+# TODO: test for exclude .gitkeep from copied binaries
