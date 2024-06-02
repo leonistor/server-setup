@@ -5,6 +5,6 @@ coca = "coca.lan"
 
 vms = [debian_12_utm]
 debians = [debian_12_utm, vivobook]
-clear_linuxes = [verde, coca]
+clears = [verde, coca]
 
 all = [debian_12_utm, verde, vivobook, coca]

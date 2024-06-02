@@ -1,3 +1,4 @@
 - [x] config bash as method, used for root/admin/generic
 - [ ] npmrc and .local/bin
 - [ ] correct install ripgrep
+- [ ] neovim, astrovim

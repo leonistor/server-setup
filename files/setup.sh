@@ -72,7 +72,7 @@ configure_updates() {
         # unattended upgrades
         apt-get install unattended-upgrades apt-listchanges apt-config-auto-update
         APTCONFIG="/etc/apt/apt.conf.d/50unattended-upgrades"
-        # shellcheck disable=SC2016
+        # shellcheck disable=SC2034
         LINES_UNCOMMENT=(
             '//      "origin=Debian,codename=${distro_codename}-updates";'
         )

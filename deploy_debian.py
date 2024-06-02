@@ -1,13 +1,10 @@
-# run from fish shell:
-# set -x PYTHONPATH "."; pyinfra inventory/test.py debian.install_base_packages
-
-from pyinfra import logger
-from pyinfra.api.deploy import deploy
 from pyinfra.operations import apt, files, server
 from io import StringIO
 
+from lib.generic import bash_config, setup_tools, ping_google
 
-def _install_packages(packages=[]):
+
+def install_packages(packages=[]):
     apt.packages(
         name="base packages",
         packages=packages,
@@ -17,11 +14,11 @@ def _install_packages(packages=[]):
 
 
 def install_base_packages():
-    _install_packages(["vim", "sudo", "kitty-terminfo"])
+    install_packages(["vim", "sudo", "kitty-terminfo"])
 
 
-def install_packages():
-    _install_packages(
+def install_work_packages():
+    install_packages(
         [
             # utils
             "curl",
@@ -47,46 +44,8 @@ def install_packages():
     )
 
 
-def bash_config(user="leo", group="leo"):
-    sources = ["profile", "bashrc", "bash_aliases"]
-    for source in sources:
-        files.put(
-            src=f"files/{source}",
-            dest=f"/home/{user}/.{source}",
-            force=True,
-            user=user,
-            group=group,
-            mode="600",
-            _sudo=True,
-        )
-
-
-def _install_ripgrep():
+def install_ripgrep():
     return
-
-
-def setup_tools():
-    logger.info("DO NOT FORGET:")
-    logger.info("run scripts/get-tools.sh for latest binaries")
-    files.sync(
-        name="tools binaries",
-        src="tools",
-        dest="/usr/local/bin",
-        exclude=[".gitkeep"],
-        user="root",
-        group="root",
-        mode="755",
-        delete=False,
-        _sudo=True,
-    )
-    files.put(
-        name="lf config",
-        src=StringIO("set hidden true"),
-        dest="/etc/lf/lfrc",
-        user="root",
-        group="root",
-        _sudo=True,
-    )
 
 
 def create_admin_user():
@@ -121,7 +80,6 @@ def create_admin_user():
     )
 
 
-@deploy("admin user")
 def setup_admin():
     create_admin_user()
     bash_config(user="admin", group="admin")
@@ -129,7 +87,7 @@ def setup_admin():
 
 def setup_unattended_upgrades():
     # using https://wiki.debian.org/UnattendedUpgrades
-    _install_packages(["unattended-upgrades", "apt-listchanges"])
+    install_packages(["unattended-upgrades", "apt-listchanges"])
     server.shell(
         commands="echo unattended-upgrades unattended-upgrades/enable_auto_updates boolean true | debconf-set-selections",
         _sudo=True,
@@ -140,10 +98,9 @@ def setup_unattended_upgrades():
     )
 
 
-@deploy("setup server")
 def setup_server():
     install_base_packages()
-    install_packages()
+    install_work_packages()
     setup_unattended_upgrades()
     setup_tools()
     create_admin_user()
