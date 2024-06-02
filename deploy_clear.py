@@ -1,4 +1,4 @@
-from pyinfra.operations import apt, files, server
+from pyinfra.operations import files, python, server
 from pyinfra import logger
 from io import StringIO
 
@@ -18,21 +18,17 @@ def install_base_packages():
             "containers-basic",
             "cronie",
             "dev-utils",
-            "dev-utils-dev",
             "docker-compose",
             "editors",
             "fuse",
-            "neovim",
             "network-basic",
             "NetworkManager",
             "openssh-server",
-            "os-core-update",
             "package-utils",
             "perl-basic",
             "python3-basic",
             "sysadmin-basic",
             "sysadmin-remote",
-            "telemetrics",
             "tzdata",
             "user-basic",
         ]
@@ -44,14 +40,15 @@ def install_work_packages():
         [
             "go-basic",
             "nodejs-basic",
-            "kernel-native",
-            "machine-learning-basic",
-            "os-clr-on-clr",
         ]
     )
 
 
 def _install_ripgrep():
+    return
+
+
+def _setup_kitty():
     return
 
 
@@ -64,16 +61,7 @@ def create_admin_user():
         create_home=True,
         system=True,
         shell="/bin/bash",
-        groups=[
-            "cdrom",
-            "floppy",
-            "audio",
-            "dip",
-            "video",
-            "plugdev",
-            "users",
-            "netdev",
-        ],
+        groups=["wheel"],
         unique=True,
         _sudo=True,
     )
@@ -85,31 +73,40 @@ def create_admin_user():
         mode="440",
         _sudo=True,
     )
-
-
-def setup_admin():
-    create_admin_user()
     bash_config(user="admin", group="admin")
 
 
 def setup_unattended_upgrades():
-    # using https://wiki.debian.org/UnattendedUpgrades
-    install_packages(["unattended-upgrades", "apt-listchanges"])
-    server.shell(
-        commands="echo unattended-upgrades unattended-upgrades/enable_auto_updates boolean true | debconf-set-selections",
+    # check autoupdate enabled
+    # see: https://docs.pyinfra.com/en/3.x/using-operations.html#operation-output
+    status = server.shell(
+        commands="sudo swupd autoupdate",
         _sudo=True,
     )
+
+    def callback():
+        assert status.stdout == "Enabled"
+
+    python.call(function=callback)
+
+    # enable automatic service restart after update
+    services = [
+        "NetworkManager",
+        "dbus",
+        "docker",
+        "cronie",
+        "containerd",
+    ]
     server.shell(
-        commands="dpkg-reconfigure -f noninteractive unattended-upgrades",
+        commands=f"clr-service-restart allow {' '.join(services)}",
         _sudo=True,
     )
 
 
 def setup_server():
-    install_base_packages()
-    # install_packages()
+    # install_base_packages()
+    # install_work_packages()
     # setup_unattended_upgrades()
     # setup_tools()
-    # create_admin_user()
-    # bash_config(user="admin", group="admin")
+    create_admin_user()
     # bash_config(user="leo", group="leo")

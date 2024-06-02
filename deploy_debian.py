@@ -78,10 +78,6 @@ def create_admin_user():
         mode="440",
         _sudo=True,
     )
-
-
-def setup_admin():
-    create_admin_user()
     bash_config(user="admin", group="admin")
 
 
@@ -104,5 +100,4 @@ def setup_server():
     setup_unattended_upgrades()
     setup_tools()
     create_admin_user()
-    bash_config(user="admin", group="admin")
     bash_config(user="leo", group="leo")
