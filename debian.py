@@ -128,20 +128,28 @@ def setup_admin():
 
 
 def setup_unattended_upgrades():
-    return
+    # using https://wiki.debian.org/UnattendedUpgrades
+    _install_packages(["unattended-upgrades", "apt-listchanges"])
+    server.shell(
+        commands="echo unattended-upgrades unattended-upgrades/enable_auto_updates boolean true | debconf-set-selections",
+        _sudo=True,
+    )
+    server.shell(
+        commands="dpkg-reconfigure -f noninteractive unattended-upgrades",
+        _sudo=True,
+    )
 
 
 @deploy("setup server")
 def setup_server():
     install_base_packages()
     install_packages()
+    setup_unattended_upgrades()
     setup_tools()
     create_admin_user()
     bash_config(user="admin", group="admin")
     bash_config(user="leo", group="leo")
 
 
-# TODO: write tests for new functionality
 # TODO: npmrc and .local/bin
 # TODO: correct install ripgrep
-# TODO: test for exclude .gitkeep from copied binaries

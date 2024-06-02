@@ -1,5 +1,3 @@
-import sys
-
 from inventory.test import debians
 
 if not "testinfra_hosts" in globals():
