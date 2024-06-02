@@ -7,20 +7,22 @@ from pyinfra.operations import apt, files, server
 from io import StringIO
 
 
-# TODO: extract to package lists, call one fn
-def install_base_packages():
+def _install_packages(packages=[]):
     apt.packages(
         name="base packages",
-        packages=["vim", "sudo", "kitty-terminfo"],
+        packages=packages,
         update=True,
         _sudo=True,
     )
 
 
+def install_base_packages():
+    _install_packages(["vim", "sudo", "kitty-terminfo"])
+
+
 def install_packages():
-    apt.packages(
-        name="util and dev packages",
-        packages=[
+    _install_packages(
+        [
             # utils
             "curl",
             "gnupg",
@@ -41,9 +43,7 @@ def install_packages():
             "python3-dev",
             # node
             "nodejs",
-        ],
-        update=True,
-        _sudo=True,
+        ]
     )
 
 
