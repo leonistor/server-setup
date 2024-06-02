@@ -149,7 +149,3 @@ def setup_server():
     create_admin_user()
     bash_config(user="admin", group="admin")
     bash_config(user="leo", group="leo")
-
-
-# TODO: npmrc and .local/bin
-# TODO: correct install ripgrep

@@ -1,3 +1,3 @@
-# TODO
-
-- [ ] config bash as method, used for root/admin/generic
+- [x] config bash as method, used for root/admin/generic
+- [ ] npmrc and .local/bin
+- [ ] correct install ripgrep

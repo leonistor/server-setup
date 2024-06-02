@@ -34,12 +34,12 @@ utility script to configure a new server, Debian or Clear Linux, with `admin` us
 
 ---
 
-## TODO
+## ideas
 
-- [ ] setup services (e.g. cronie)
-- [ ] add admin to cronie
-- [ ] tools: https://github.com/dalance/procs
-- [ ] tools: https://github.com/ogham/dog
+- setup services (e.g. cronie)
+- add admin to cronie
+- tools: https://github.com/dalance/procs
+- tools: https://github.com/ogham/dog
 - debian auto update: Allow installing updates from all origins (see tutorial below)
 
 ## tricks used
