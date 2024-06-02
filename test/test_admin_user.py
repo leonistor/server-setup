@@ -1,10 +1,13 @@
 import sys
-import logging
 
-sys.path.append("../inventory")
-from inventory import test
+from inventory.test import debians
 
-testinfra_hosts = test.debians
+if not "testinfra_hosts" in globals():
+    testinfra_hosts = debians
+
+from dotenv import dotenv_values
+
+secrets = dotenv_values(".env")
 
 
 def test_admin(host):
@@ -26,7 +29,8 @@ def test_tools(host):
 
 
 def test_bash_config(host):
-    result = host.run("echo 'test123#' | su -c env - admin")
+    password = secrets["ADMIN_PASSWORD"]
+    result = host.run(f"echo '{password}' | su -c env - admin")
     # logging.info(result.stdout)
     assert "EDITOR=vim" in result.stdout
     assert "PAGER=moar" in result.stdout

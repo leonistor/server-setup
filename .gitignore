@@ -1,3 +1,4 @@
+.env
 venv
 tools/*
 !tools/.gitkeep

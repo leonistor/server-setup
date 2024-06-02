@@ -127,6 +127,10 @@ def setup_admin():
     bash_config(user="admin", group="admin")
 
 
+def setup_unattended_upgrades():
+    return
+
+
 @deploy("setup server")
 def setup_server():
     install_base_packages()

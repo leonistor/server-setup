@@ -1,4 +1,4 @@
-debian_12_utm = "192.168.64.2"
+debian_12_utm = "192.168.65.3"
 verde = "verde.lan"
 vivobook = "vivobook.lan"
 coca = "coca.lan"
