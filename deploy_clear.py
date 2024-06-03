@@ -40,15 +40,20 @@ def install_work_packages():
         [
             "go-basic",
             "nodejs-basic",
+            "rust-basic",
         ]
     )
 
 
-def _install_ripgrep():
-    return
+def install_ripgrep(user="leo"):
+    server.shell(
+        commands="cargo install ripgrep",
+        _su_user=user,
+        _use_su_login=True,
+        _sudo=True,
+    )
 
 
-# TODO: kitty config
 def setup_kitty(user="leo", group="leo"):
     files.put(
         src="files/xterm-kitty",
@@ -113,11 +118,12 @@ def setup_unattended_upgrades():
 
 
 def setup_server():
-    install_base_packages()
+    # install_base_packages()
     # install_work_packages()
     # setup_unattended_upgrades()
     # setup_tools()
     # create_admin_user()
     setup_kitty(user="admin", group="admin")
+    install_ripgrep(user="admin")
     # bash_config(user="leo", group="leo")
-    setup_kitty(user="leo", group="leo")
+    # setup_kitty(user="leo", group="leo")

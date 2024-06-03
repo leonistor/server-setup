@@ -1,5 +1,6 @@
 from pyinfra.operations import apt, files, server
 from io import StringIO
+import glob
 
 from lib.generic import bash_config, setup_tools, ping_google
 
@@ -45,7 +46,22 @@ def install_work_packages():
 
 
 def install_ripgrep():
-    return
+    deb_file = glob.glob(
+        "ripgrep_*.deb",
+        root_dir="tools",
+    )[0]
+    files.put(
+        src=f"tools/{deb_file}",
+        dest="/tmp",
+        _sudo=True,
+    )
+    server.shell(
+        commands=[
+            f"dpkg -i /tmp/{deb_file}",
+            f"rm /tmp/{deb_file}",
+        ],
+        _sudo=True,
+    )
 
 
 def create_admin_user():
@@ -95,9 +111,10 @@ def setup_unattended_upgrades():
 
 
 def setup_server():
-    install_base_packages()
-    install_work_packages()
-    setup_unattended_upgrades()
-    setup_tools()
+    # install_base_packages()
+    # install_work_packages()
+    # setup_unattended_upgrades()
+    # setup_tools()
+    install_ripgrep()
     create_admin_user()
     bash_config(user="leo", group="leo")
