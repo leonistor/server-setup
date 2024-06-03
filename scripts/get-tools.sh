@@ -2,11 +2,11 @@
 
 # download latest versions of tools
 
-echo "moar"
+echo "get: moar"
 lastversion --assets --filter "linux-386" \
     --output ../tools/moar download walles/moar
 
-echo "fd"
+echo "get: fd"
 lastversion --assets --filter "x86_64-unknown-linux-gnu" \
     --output fd.tar.gz download sharkdp/fd
 mkdir fd-current
@@ -24,7 +24,7 @@ rm -rf fd-current fd.tar.gz
 # mv ./rg-current/rg ../tools/rg
 # rm -rf rg-current ripgrep*.tar.gz
 
-echo "lf"
+echo "get: lf"
 lastversion --assets --filter "linux-amd64" \
     --output lf.tar.gz download gokcehan/lf
 tar xf lf.tar.gz
@@ -32,9 +32,13 @@ chmod +x lf
 mv lf ../tools/lf
 rm lf.tar.gz
 
-echo "ttyd"
+echo "get: ttyd"
 lastversion --assets --filter "x86_64" \
     --output ttyd download tsl0922/ttyd
 mv ttyd.x86_64 ttyd
 chmod +x ttyd
 mv ttyd ../tools/ttyd
+
+echo "get: kitty-terminal"
+wget "https://github.com/kovidgoyal/kitty/raw/master/terminfo/x/xterm-kitty" \
+    -q -O ../files/xterm-kitty

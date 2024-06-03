@@ -48,7 +48,16 @@ def _install_ripgrep():
     return
 
 
-def _setup_kitty():
+# TODO: kitty config
+def setup_kitty(user="leo", group="leo"):
+    files.put(
+        src="files/xterm-kitty",
+        dest=f"/home/{user}/.terminfo/x/xterm-kitty",
+        user=user,
+        group=group,
+        mode="644",
+        _sudo=True,
+    )
     return
 
 
@@ -104,9 +113,11 @@ def setup_unattended_upgrades():
 
 
 def setup_server():
-    # install_base_packages()
+    install_base_packages()
     # install_work_packages()
     # setup_unattended_upgrades()
     # setup_tools()
-    create_admin_user()
+    # create_admin_user()
+    setup_kitty(user="admin", group="admin")
     # bash_config(user="leo", group="leo")
+    setup_kitty(user="leo", group="leo")
