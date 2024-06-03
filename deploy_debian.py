@@ -64,6 +64,15 @@ def install_ripgrep():
     )
 
 
+def install_rust(user="leo"):
+    server.shell(
+        commands="curl https://sh.rustup.rs -sSf | sh -s -- -y",
+        _sudo_user=user,
+        _use_sudo_login=True,
+        _sudo=True,
+    )
+
+
 def create_admin_user():
     server.user(
         name="create admin user",
@@ -111,10 +120,14 @@ def setup_unattended_upgrades():
 
 
 def setup_server():
-    # install_base_packages()
-    # install_work_packages()
-    # setup_unattended_upgrades()
-    # setup_tools()
+    # system
+    install_base_packages()
+    install_work_packages()
+    setup_unattended_upgrades()
+    # tools
+    setup_tools()
     install_ripgrep()
+    # admin
     create_admin_user()
+    # leo
     bash_config(user="leo", group="leo")
