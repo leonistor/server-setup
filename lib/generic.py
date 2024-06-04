@@ -1,6 +1,11 @@
+import click
+from distro import LinuxDistribution
 from pyinfra.operations import cargo, files, server
 from pyinfra import logger
 from io import StringIO
+
+from pyinfra import host  # type: ignore
+from pyinfra.facts.server import LinuxName
 
 
 def bash_config(user="leo", group="leo"):
@@ -108,6 +113,25 @@ def install_astrovim(user="leo"):
         _sudo=True,
         _ignore_errors=True,
     )
+
+
+def check_distro(wanted):
+    try:
+        assert wanted in ["debian", "clear"], "Distro must be one of 'debian' or 'clear"
+
+        distro = host.get_fact(LinuxName)
+        if distro == "Debian":
+            assert wanted == "debian", f"cannot run {wanted} on Debian"
+        elif distro == "Clear Linux OS":
+            assert wanted == "clear", f"cannot run {wanted} on Clear Linux OS"
+        else:
+            assert 1 == 0, f"unknown distro {distro}"
+    except AssertionError as err:
+        logger.error(
+            msg=click.style(f"ERROR: {err}", fg="red", bold=True),
+            exc_info=True,
+        )
+        exit(1)
 
 
 def ping_google():

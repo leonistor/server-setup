@@ -2,7 +2,13 @@ from pyinfra.operations import apt, files, server
 from io import StringIO
 import glob
 
-from lib.generic import bash_config, install_astrovim, setup_tools, install_neovim
+from lib.generic import (
+    bash_config,
+    check_distro,
+    install_astrovim,
+    setup_tools,
+    install_neovim,
+)
 
 
 def install_packages(packages=[]):
@@ -130,10 +136,12 @@ def setup_server():
     # admin
     create_admin_user()
     install_neovim(user="admin")
+    install_astrovim(user="admin")
     # leo
     bash_config(user="leo", group="leo")
     install_neovim(user="leo")
+    install_astrovim(user="leo")
 
 
 def test():
-    install_astrovim(user="leo")
+    check_distro(wanted="debian")

@@ -1,5 +1,5 @@
 - [x] config bash as method, used for root/admin/generic
 - [x] npmrc and .local/bin
 - [x] correct install ripgrep
-- [ ] neovim, astrovim
-- [ ] check distro first in setup_server
+- [x] neovim, astrovim
+- [x] check distro first in setup_server
