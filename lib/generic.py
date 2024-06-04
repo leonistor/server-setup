@@ -1,4 +1,4 @@
-from pyinfra.operations import apt, files, server
+from pyinfra.operations import cargo, files, server
 from pyinfra import logger
 from io import StringIO
 
@@ -71,24 +71,42 @@ def install_neovim(user="leo"):
     """
     Install neovim latest version using
     [bob](https://github.com/MordechaiHadad/bob)
-    then [astrovim](https://github.com/astrovim/astrovim)
     """
+    cargo.packages(name="bob-nvim", latest=True)
     server.shell(
-        commands=[
-            # install bob. rust must be installed and configured for user
-            "cargo install bob-nvim",
-            # ask bob to install stable neovim
-            "bob use stable",
-        ],
+        commands="bob use stable",
         _sudo_user=user,
         _use_sudo_login=True,
         _sudo=True,
+        _ignore_errors=True,
     )
     # simlink to binary
     files.link(
         path=f"/home/{user}/.local/bin/nvim",
         target=f"/home/{user}/.local/share/bob/nvim-bin/nvim",
         user=user,
+    )
+
+
+def install_astrovim(user="leo"):
+    # [astrovim](https://github.com/astrovim/astrovim)
+    server.script(
+        src="files/clean-nvim.sh",
+        _sudo_user=user,
+        _use_sudo_login=True,
+        _sudo=True,
+        _ignore_errors=True,
+    )
+    server.shell(
+        commands=[
+            "git clone --depth 1 https://github.com/AstroNvim/template ~/.config/nvim",
+            "rm -rf ~/.config/nvim/.git",
+            "nvim --headless +q",
+        ],
+        _sudo_user=user,
+        _use_sudo_login=True,
+        _sudo=True,
+        _ignore_errors=True,
     )
 
 

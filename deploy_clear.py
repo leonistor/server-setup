@@ -1,7 +1,7 @@
 from pyinfra.operations import files, python, server
 from io import StringIO
 
-from lib.generic import bash_config, install_neovim, setup_tools
+from lib.generic import bash_config, install_astrovim, install_neovim, setup_tools
 
 
 def install_packages(packages=[]):
@@ -127,11 +127,13 @@ def setup_server():
     create_admin_user()
     setup_kitty(user="admin", group="admin")
     install_ripgrep(user="admin")
+    install_neovim(user="admin")
     # leo
     install_ripgrep(user="leo")
     setup_kitty(user="leo", group="leo")
     bash_config(user="leo", group="leo")
+    install_neovim(user="leo")
 
 
 def test():
-    install_neovim(user="leo")
+    install_astrovim(user="leo")

@@ -2,3 +2,4 @@
 - [x] npmrc and .local/bin
 - [x] correct install ripgrep
 - [ ] neovim, astrovim
+- [ ] check distro first in setup_server

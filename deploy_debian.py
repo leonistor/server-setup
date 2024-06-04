@@ -2,7 +2,7 @@ from pyinfra.operations import apt, files, server
 from io import StringIO
 import glob
 
-from lib.generic import bash_config, setup_tools, install_neovim
+from lib.generic import bash_config, install_astrovim, setup_tools, install_neovim
 
 
 def install_packages(packages=[]):
@@ -129,9 +129,11 @@ def setup_server():
     install_ripgrep()
     # admin
     create_admin_user()
+    install_neovim(user="admin")
     # leo
     bash_config(user="leo", group="leo")
+    install_neovim(user="leo")
 
 
 def test():
-    install_neovim(user="leo")
+    install_astrovim(user="leo")
