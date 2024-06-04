@@ -2,7 +2,7 @@ from pyinfra.operations import apt, files, server
 from io import StringIO
 import glob
 
-from lib.generic import bash_config, setup_tools, ping_google
+from lib.generic import bash_config, setup_tools, install_neovim
 
 
 def install_packages(packages=[]):
@@ -131,3 +131,7 @@ def setup_server():
     create_admin_user()
     # leo
     bash_config(user="leo", group="leo")
+
+
+def test():
+    install_neovim(user="leo")

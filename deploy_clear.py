@@ -1,8 +1,7 @@
 from pyinfra.operations import files, python, server
-from pyinfra import logger
 from io import StringIO
 
-from lib.generic import bash_config, setup_tools, ping_google
+from lib.generic import bash_config, install_neovim, setup_tools
 
 
 def install_packages(packages=[]):
@@ -132,3 +131,7 @@ def setup_server():
     install_ripgrep(user="leo")
     setup_kitty(user="leo", group="leo")
     bash_config(user="leo", group="leo")
+
+
+def test():
+    install_neovim(user="leo")

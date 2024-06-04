@@ -67,5 +67,30 @@ def setup_tools():
     )
 
 
+def install_neovim(user="leo"):
+    """
+    Install neovim latest version using
+    [bob](https://github.com/MordechaiHadad/bob)
+    then [astrovim](https://github.com/astrovim/astrovim)
+    """
+    server.shell(
+        commands=[
+            # install bob. rust must be installed and configured for user
+            "cargo install bob-nvim",
+            # ask bob to install stable neovim
+            "bob use stable",
+        ],
+        _sudo_user=user,
+        _use_sudo_login=True,
+        _sudo=True,
+    )
+    # simlink to binary
+    files.link(
+        path=f"/home/{user}/.local/bin/nvim",
+        target=f"/home/{user}/.local/share/bob/nvim-bin/nvim",
+        user=user,
+    )
+
+
 def ping_google():
     server.shell(commands="ping -c 3 google.com")
