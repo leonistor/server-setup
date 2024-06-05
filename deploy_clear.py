@@ -123,6 +123,7 @@ def setup_unattended_upgrades():
 
 
 def setup_server():
+    check_distro(wanted="clear")
     # system
     install_base_packages()
     install_work_packages()
