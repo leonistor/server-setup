@@ -132,7 +132,7 @@ def check_distro(wanted):
         assert wanted in ["debian", "clear"], "Distro must be one of 'debian' or 'clear"
 
         distro = host.get_fact(LinuxName)
-        if distro == "Debian":
+        if distro in ["Debian", "Ubuntu"]:
             assert wanted == "debian", f"cannot run {wanted} on Debian"
         elif distro == "Clear Linux OS":
             assert wanted == "clear", f"cannot run {wanted} on Clear Linux OS"
@@ -144,6 +144,21 @@ def check_distro(wanted):
             exc_info=True,
         )
         exit(1)
+
+
+def fix_ownership(user="leo", group="leo", folders=[".local", ".terminfo"]):
+    """
+    Correct ownership of folders in the home directory of the user.
+    """
+    commands = [
+        f"chown --recursive {user}:{group} /home/{user}/{folder}" for folder in folders
+    ]
+    server.shell(
+        commands=commands,
+        _sudo=True,
+        _ignore_errors=True,
+        _continue_on_error=True,
+    )
 
 
 def ping_google():

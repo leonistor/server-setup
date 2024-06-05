@@ -5,15 +5,16 @@ import glob
 from lib.generic import (
     bash_config,
     check_distro,
+    fix_ownership,
     install_astrovim,
     setup_tools,
     install_neovim,
 )
 
 
-def install_packages(packages=[]):
+def install_packages(packages=[], name=""):
     apt.packages(
-        name="base packages",
+        name=f"install packages: {name}",
         packages=packages,
         update=True,
         _sudo=True,
@@ -21,7 +22,14 @@ def install_packages(packages=[]):
 
 
 def install_base_packages():
-    install_packages(["vim", "sudo", "kitty-terminfo"])
+    install_packages(
+        [
+            "vim",
+            "sudo",
+            "kitty-terminfo",
+        ],
+        name="base",
+    )
 
 
 def install_work_packages():
@@ -33,6 +41,7 @@ def install_work_packages():
             "wget",
             "htop",
             # dev
+            "acl",
             "build-essential",
             "autoconf",
             "automake",
@@ -47,7 +56,8 @@ def install_work_packages():
             "python3-dev",
             # node
             "nodejs",
-        ]
+        ],
+        name="work",
     )
 
 
@@ -109,7 +119,6 @@ def create_admin_user():
         mode="440",
         _sudo=True,
     )
-    bash_config(user="admin", group="admin")
 
 
 def setup_unattended_upgrades():
@@ -136,10 +145,15 @@ def setup_server():
     install_ripgrep()
     # admin
     create_admin_user()
+    bash_config(user="admin", group="admin")
+    install_rust(user="admin")
+    fix_ownership(user="admin", group="admin")
     install_neovim(user="admin")
     install_astrovim(user="admin")
     # leo
     bash_config(user="leo", group="leo")
+    fix_ownership(user="leo", group="leo")
+    install_rust(user="leo")
     install_neovim(user="leo")
     install_astrovim(user="leo")
 

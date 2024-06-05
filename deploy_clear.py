@@ -4,6 +4,7 @@ from io import StringIO
 from lib.generic import (
     bash_config,
     check_distro,
+    fix_ownership,
     install_astrovim,
     install_neovim,
     setup_tools,
@@ -118,19 +119,6 @@ def setup_unattended_upgrades():
     ]
     server.shell(
         commands=f"clr-service-restart allow {' '.join(services)}",
-        _sudo=True,
-    )
-
-
-def fix_ownership(user="leo", group="leo", folders=[".local", ".terminfo"]):
-    """
-    Correct ownership of folders in the home directory of the user.
-    """
-    commands = [
-        f"chown --recursive {user}:{group} /home/{user}/{folder}" for folder in folders
-    ]
-    server.shell(
-        commands=commands,
         _sudo=True,
     )
 
