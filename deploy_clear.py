@@ -20,6 +20,7 @@ def install_packages(packages=[]):
 def install_base_packages():
     install_packages(
         [
+            "acl",
             "containers-basic",
             "cronie",
             "dev-utils",
@@ -92,7 +93,6 @@ def create_admin_user():
         mode="440",
         _sudo=True,
     )
-    bash_config(user="admin", group="admin")
 
 
 def setup_unattended_upgrades():
@@ -122,6 +122,19 @@ def setup_unattended_upgrades():
     )
 
 
+def fix_ownership(user="leo", group="leo", folders=[".local", ".terminfo"]):
+    """
+    Correct ownership of folders in the home directory of the user.
+    """
+    commands = [
+        f"chown --recursive {user}:{group} /home/{user}/{folder}" for folder in folders
+    ]
+    server.shell(
+        commands=commands,
+        _sudo=True,
+    )
+
+
 def setup_server():
     check_distro(wanted="clear")
     # system
@@ -132,14 +145,17 @@ def setup_server():
     setup_tools()
     # admin
     create_admin_user()
+    bash_config(user="admin", group="admin")
     setup_kitty(user="admin", group="admin")
     install_ripgrep(user="admin")
+    fix_ownership(user="admin", group="admin")
     install_neovim(user="admin")
     install_astrovim(user="admin")
     # leo
-    install_ripgrep(user="leo")
     setup_kitty(user="leo", group="leo")
     bash_config(user="leo", group="leo")
+    fix_ownership(user="leo", group="leo")
+    install_ripgrep(user="leo")
     install_neovim(user="leo")
     install_astrovim(user="leo")
 

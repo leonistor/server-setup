@@ -3,3 +3,6 @@
 - [x] correct install ripgrep
 - [x] neovim, astrovim
 - [x] check distro first in setup_server
+- [ ] fix golang install for users
+- [ ] rewrite tools install: you have golang
+- [ ] write e2e tests
