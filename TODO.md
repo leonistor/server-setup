@@ -1,8 +1,5 @@
-- [x] config bash as method, used for root/admin/generic
-- [x] npmrc and .local/bin
-- [x] correct install ripgrep
-- [x] neovim, astrovim
-- [x] check distro first in setup_server
-- [ ] fix golang install for users
-- [ ] rewrite tools install: you have golang
+- [ ] rewrite tools install: you have mise
+- [ ] refactor bash settings to use line changes
+- [ ] make astrovim optional
+- [ ] write op to report facts only
 - [ ] write e2e tests
