@@ -19,23 +19,6 @@ def bash_config(user="leo", group="leo"):
             mode="600",
             _sudo=True,
         )
-    # rootless npm setup
-    files.directory(
-        path=f"/home/{user}/.npm-packages",
-        present=True,
-        user=user,
-        group=group,
-        mode="755",
-        _sudo=True,
-    )
-    files.put(
-        src=StringIO(f"prefix=/home/{user}/.npm-packages"),
-        dest=f"/home/{user}/.npmrc",
-        user=user,
-        group=group,
-        mode="644",
-        _sudo=True,
-    )
     # user binaries
     files.directory(
         path=f"/home/{user}/.local/bin",
