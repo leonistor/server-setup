@@ -7,7 +7,6 @@ from lib.generic import (
     fix_ownership,
     install_astrovim,
     install_mise,
-    install_neovim,
     install_tools,
     setup_binary_tools,
 )
@@ -131,19 +130,17 @@ def setup_server():
     setup_kitty(user="admin", group="admin")
     fix_ownership(user="admin", group="admin")
     install_mise(user="admin")
-
-    # install_neovim(user="admin")
-    # install_astrovim(user="admin")
+    install_tools(user="admin")
+    install_astrovim(user="admin")
 
     # leo
-    # setup_kitty(user="leo", group="leo")
-    # bash_config(user="leo", group="leo")
-    # fix_ownership(user="leo", group="leo")
-    # install_ripgrep(user="leo")
-    # install_neovim(user="leo")
-    # install_astrovim(user="leo")
+    bash_config(user="leo", group="leo")
+    setup_kitty(user="leo", group="leo")
+    fix_ownership(user="leo", group="leo")
+    install_mise(user="leo")
+    install_tools(user="leo")
+    install_astrovim(user="leo")
 
 
 def test():
     check_distro(wanted="clear")
-    install_tools(user="admin")

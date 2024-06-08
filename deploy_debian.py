@@ -8,7 +8,7 @@ from lib.generic import (
     fix_ownership,
     install_astrovim,
     install_mise,
-    install_neovim,
+    install_tools,
     setup_binary_tools,
 )
 
@@ -109,19 +109,29 @@ def setup_unattended_upgrades():
 
 def setup_server():
     check_distro(wanted="debian")
+
     # system
     install_base_packages()
     install_work_packages()
     setup_unattended_upgrades()
+
     # tools
     setup_binary_tools()
+
     # admin
     create_admin_user()
     bash_config(user="admin", group="admin")
     fix_ownership(user="admin", group="admin")
+    install_mise(user="admin")
+    install_tools(user="admin")
+    install_astrovim(user="admin")
+
     # leo
     bash_config(user="leo", group="leo")
     fix_ownership(user="leo", group="leo")
+    install_mise(user="leo")
+    install_tools(user="leo")
+    install_astrovim(user="leo")
 
 
 def test():

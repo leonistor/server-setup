@@ -54,40 +54,6 @@ def setup_binary_tools():
     )
 
 
-def install_neovim(user="leo"):
-    """
-    Install neovim latest version using
-    [bob](https://github.com/MordechaiHadad/bob)
-    """
-    server.shell(
-        commands="cargo install bob-nvim",
-        _sudo_user=user,
-        _use_sudo_login=True,
-        _sudo=True,
-    )
-    server.shell(
-        commands="bob use stable",
-        _sudo_user=user,
-        _use_sudo_login=True,
-        _sudo=True,
-        _ignore_errors=True,
-    )
-    # simlink to binary
-    server.shell(
-        commands=f"ln -s /home/{user}/.local/share/bob/nvim-bin/nvim /home/{user}/.local/bin/nvim",
-        _sudo_user=user,
-        _use_sudo_login=True,
-        _sudo=True,
-        _ignore_errors=True,
-    )
-    # simlink to binary
-    # files.link(
-    #     path=f"/home/{user}/.local/bin/nvim",
-    #     target=f"/home/{user}/.local/share/bob/nvim-bin/nvim",
-    #     user=user,
-    # )
-
-
 def install_astrovim(user="leo"):
     # [astrovim](https://github.com/astrovim/astrovim)
     server.script(
