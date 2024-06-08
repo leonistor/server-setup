@@ -7,8 +7,9 @@ from lib.generic import (
     check_distro,
     fix_ownership,
     install_astrovim,
-    setup_binary_tools,
+    install_mise,
     install_neovim,
+    setup_binary_tools,
 )
 
 

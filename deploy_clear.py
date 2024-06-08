@@ -6,7 +6,9 @@ from lib.generic import (
     check_distro,
     fix_ownership,
     install_astrovim,
+    install_mise,
     install_neovim,
+    install_tools,
     setup_binary_tools,
 )
 
@@ -46,14 +48,6 @@ def install_work_packages():
             "perl-basic",
             "python3-basic",
         ]
-    )
-
-
-def install_msie(user="leo"):
-    server.shell(
-        commands="curl https://mise.run | sh",
-        _sudo_user=user,
-        _sudo=True,
     )
 
 
@@ -135,9 +129,8 @@ def setup_server():
     create_admin_user()
     bash_config(user="admin", group="admin")
     setup_kitty(user="admin", group="admin")
-    # install_ripgrep(user="admin")
     fix_ownership(user="admin", group="admin")
-    install_msie(user="admin")
+    install_mise(user="admin")
 
     # install_neovim(user="admin")
     # install_astrovim(user="admin")
@@ -153,3 +146,4 @@ def setup_server():
 
 def test():
     check_distro(wanted="clear")
+    install_tools(user="admin")

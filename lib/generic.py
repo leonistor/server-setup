@@ -144,5 +144,23 @@ def fix_ownership(user="leo", group="leo", folders=[".local", ".terminfo"]):
     )
 
 
+def install_mise(user="leo"):
+    server.shell(
+        commands="curl https://mise.run | sh",
+        _sudo_user=user,
+        _sudo=True,
+    )
+
+
+def install_tools(user="leo"):
+    tools = ["ripgrep", "fd", "neovim"]
+    server.shell(
+        commands=f"mise use {' '.join(tools)} --yes",
+        _sudo_user=user,
+        _use_sudo_login=True,
+        _sudo=True,
+    )
+
+
 def ping_google():
     server.shell(commands="ping -c 3 google.com")
