@@ -7,7 +7,7 @@ from lib.generic import (
     check_distro,
     fix_ownership,
     install_astrovim,
-    setup_tools,
+    setup_binary_tools,
     install_neovim,
 )
 
@@ -54,39 +54,10 @@ def install_work_packages():
             "python3-pip",
             "python3-venv",
             "python3-dev",
-            # TODO: too old on Debian!
-            # node
-            "nodejs",
+            # node: too old on Debian! use mise instead
+            # "nodejs",
         ],
         name="work",
-    )
-
-
-def install_ripgrep():
-    deb_file = glob.glob(
-        "ripgrep_*.deb",
-        root_dir="tools",
-    )[0]
-    files.put(
-        src=f"tools/{deb_file}",
-        dest="/tmp",
-        _sudo=True,
-    )
-    server.shell(
-        commands=[
-            f"dpkg -i /tmp/{deb_file}",
-            f"rm /tmp/{deb_file}",
-        ],
-        _sudo=True,
-    )
-
-
-def install_rust(user="leo"):
-    server.shell(
-        commands="curl https://sh.rustup.rs -sSf | sh -s -- -y",
-        _sudo_user=user,
-        _use_sudo_login=True,
-        _sudo=True,
     )
 
 
@@ -142,21 +113,14 @@ def setup_server():
     install_work_packages()
     setup_unattended_upgrades()
     # tools
-    setup_tools()
-    install_ripgrep()
+    setup_binary_tools()
     # admin
     create_admin_user()
     bash_config(user="admin", group="admin")
-    install_rust(user="admin")
     fix_ownership(user="admin", group="admin")
-    install_neovim(user="admin")
-    install_astrovim(user="admin")
     # leo
     bash_config(user="leo", group="leo")
     fix_ownership(user="leo", group="leo")
-    install_rust(user="leo")
-    install_neovim(user="leo")
-    install_astrovim(user="leo")
 
 
 def test():

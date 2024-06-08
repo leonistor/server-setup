@@ -30,7 +30,7 @@ def bash_config(user="leo", group="leo"):
     )
 
 
-def setup_tools():
+def setup_binary_tools():
     logger.info("DO NOT FORGET:")
     logger.info("run scripts/get-tools.sh for latest binaries")
     files.sync(

@@ -7,7 +7,7 @@ from lib.generic import (
     fix_ownership,
     install_astrovim,
     install_neovim,
-    setup_tools,
+    setup_binary_tools,
 )
 
 
@@ -32,8 +32,6 @@ def install_base_packages():
             "NetworkManager",
             "openssh-server",
             "package-utils",
-            "perl-basic",
-            "python3-basic",
             "sysadmin-basic",
             "sysadmin-remote",
             "tzdata",
@@ -45,19 +43,16 @@ def install_base_packages():
 def install_work_packages():
     install_packages(
         [
-            # TODO: too old on Clear!
-            "go-basic",
-            "nodejs-basic",
-            "rust-basic",
+            "perl-basic",
+            "python3-basic",
         ]
     )
 
 
-def install_ripgrep(user="leo"):
+def install_msie(user="leo"):
     server.shell(
-        commands="cargo install ripgrep",
+        commands="curl https://mise.run | sh",
         _sudo_user=user,
-        _use_sudo_login=True,
         _sudo=True,
     )
 
@@ -127,27 +122,33 @@ def setup_unattended_upgrades():
 
 def setup_server():
     check_distro(wanted="clear")
+
     # system
     install_base_packages()
     install_work_packages()
     setup_unattended_upgrades()
+
     # tools
-    setup_tools()
+    setup_binary_tools()
+
     # admin
     create_admin_user()
     bash_config(user="admin", group="admin")
     setup_kitty(user="admin", group="admin")
-    install_ripgrep(user="admin")
+    # install_ripgrep(user="admin")
     fix_ownership(user="admin", group="admin")
-    install_neovim(user="admin")
-    install_astrovim(user="admin")
+    install_msie(user="admin")
+
+    # install_neovim(user="admin")
+    # install_astrovim(user="admin")
+
     # leo
-    setup_kitty(user="leo", group="leo")
-    bash_config(user="leo", group="leo")
-    fix_ownership(user="leo", group="leo")
-    install_ripgrep(user="leo")
-    install_neovim(user="leo")
-    install_astrovim(user="leo")
+    # setup_kitty(user="leo", group="leo")
+    # bash_config(user="leo", group="leo")
+    # fix_ownership(user="leo", group="leo")
+    # install_ripgrep(user="leo")
+    # install_neovim(user="leo")
+    # install_astrovim(user="leo")
 
 
 def test():
