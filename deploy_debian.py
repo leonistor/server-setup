@@ -54,6 +54,7 @@ def install_work_packages():
             "python3-pip",
             "python3-venv",
             "python3-dev",
+            # TODO: too old on Debian!
             # node
             "nodejs",
         ],

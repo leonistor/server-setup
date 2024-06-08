@@ -1,5 +1,5 @@
 - [ ] rewrite tools install: you have mise
-- [ ] refactor bash settings to use line changes
+- [?] refactor bash settings to use line changes
 - [ ] make astrovim optional
 - [ ] write op to report facts only
 - [ ] write e2e tests

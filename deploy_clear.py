@@ -45,6 +45,7 @@ def install_base_packages():
 def install_work_packages():
     install_packages(
         [
+            # TODO: too old on Clear!
             "go-basic",
             "nodejs-basic",
             "rust-basic",
@@ -116,6 +117,7 @@ def setup_unattended_upgrades():
         "docker",
         "cronie",
         "containerd",
+        "systemd-logind",
     ]
     server.shell(
         commands=f"clr-service-restart allow {' '.join(services)}",

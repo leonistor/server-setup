@@ -64,6 +64,8 @@ sudo swupd bundle-list --status | grep "explicitly installed" \
     | xargs -I{} -P1 echo {} | sort
 ```
 
+package sources: https://github.com/orgs/clearlinux-pkgs/repositories?type=all
+
 ### debian
 
 - good howtos: [server-world.info](https://www.server-world.info/en/)
