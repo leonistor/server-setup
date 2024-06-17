@@ -14,6 +14,27 @@ invoke tests:
 
 ---
 
+# TODO
+
+For system status:
+
+```sh
+
+# hardware info
+sudo lshw -short -class processor,memory,display,storage,disk
+
+# disks
+lsblk --output NAME,FSTYPE,FSAVAIL,FSUSE%,MOUNTPOINTS
+
+# network
+ip -brief addr show
+
+```
+
+Path: TODO.md
+
+---
+
 # old README
 
 utility script to configure a new server, Debian or Clear Linux, with `admin` user.
