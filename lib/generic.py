@@ -82,7 +82,7 @@ def check_distro(wanted):
         assert wanted in ["debian", "clear"], "Distro must be one of 'debian' or 'clear"
 
         distro = host.get_fact(LinuxName)
-        if distro in ["Debian", "Ubuntu"]:
+        if distro in ["Debian", "Ubuntu", "Pop!_OS"]:
             assert wanted == "debian", f"cannot run {wanted} on Debian"
         elif distro == "Clear Linux OS":
             assert wanted == "clear", f"cannot run {wanted} on Clear Linux OS"

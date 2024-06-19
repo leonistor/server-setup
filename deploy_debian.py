@@ -136,3 +136,4 @@ def setup_server():
 
 def test():
     check_distro(wanted="debian")
+    setup_binary_tools()
