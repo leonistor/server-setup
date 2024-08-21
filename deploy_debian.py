@@ -136,4 +136,8 @@ def setup_server():
 
 def test():
     check_distro(wanted="debian")
-    setup_binary_tools()
+    bash_config(user="leo", group="leo")
+    fix_ownership(user="leo", group="leo")
+    install_mise(user="leo")
+    install_tools(user="leo")
+    install_astrovim(user="leo")
