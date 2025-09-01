@@ -6,7 +6,7 @@ HISTFILESIZE=2000000
 shopt -s histappend
 HISTCONTROL=ignoreboth
 HISTIGNORE='ls:ll:ls -alh:pwd:clear:history:d:..'
-HISTTIMEFORMAT='%F %T '
+# HISTTIMEFORMAT='%F %T '
 shopt -s cmdhist
 
 # aliases
