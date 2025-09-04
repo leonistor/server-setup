@@ -36,3 +36,8 @@ passwd leo
 usermod -aG sudo leo
 
 # files
+wget -O /tmp/dist.zip ""
+tar xzf /tmp/dist.zip
+chmod -R + r /tmp/dist
+echo "use dist files:"
+ls -lah /tmp/dist
