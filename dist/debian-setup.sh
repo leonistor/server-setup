@@ -36,7 +36,7 @@ passwd leo
 usermod -aG sudo leo
 
 # files
-wget -O /tmp/dist.zip ""
+wget -O /tmp/dist.zip "https://github.com/leonistor/server-setup/blob/main/dist.tar.gz"
 tar xzf /tmp/dist.zip
 chmod -R + r /tmp/dist
 echo "use dist files:"
