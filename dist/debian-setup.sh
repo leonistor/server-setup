@@ -36,8 +36,9 @@ passwd leo
 usermod -aG sudo leo
 
 # files
-wget -O /tmp/dist.tar.gz "https://github.com/leonistor/server-setup/raw/refs/heads/main/dist.tar.gz"
-tar xzf /tmp/dist.zip
-chmod -R + r /tmp/dist
+mkdir /tmp/dist
+wget --directory-prefix=/tmp/dist "https://raw.githubusercontent.com/leonistor/server-setup/refs/heads/main/dist/bashrc"
+wget --directory-prefix=/tmp/dist "https://github.com/leonistor/server-setup/raw/refs/heads/main/dist/bash_aliases"
+chmod -R +r /tmp/dist
 echo "use dist files:"
 ls -lah /tmp/dist
